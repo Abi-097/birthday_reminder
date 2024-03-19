@@ -1,9 +1,9 @@
-import Birthday from "./birthday/page";
+import SignIn from "./components/SignIn";
 
 export default function Home() {
   return (
-    <>
-      <Birthday />
-    </>
+    <h1>
+      <SignIn />
+    </h1>
   );
 }
