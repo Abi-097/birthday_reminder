@@ -1,9 +1,9 @@
-import SignIn from "./components/SignIn";
+import Birthday from "./components/Birthday";
 
 export default function Home() {
   return (
-    <h1>
-      <SignIn />
-    </h1>
+    <div className="App">
+      <Birthday />
+    </div>
   );
 }
