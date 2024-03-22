@@ -1,44 +1,23 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { FcCollapse, FcExpand, FcPlus } from "react-icons/fc";
+import { FcCollapse, FcExpand } from "react-icons/fc";
 import {
   Box,
-  Paper,
   Card,
   Typography,
   IconButton,
   CardContent,
   CardHeader,
-  Button,
   Grid,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  TextField,
-  DialogTitle,
-  useMediaQuery,
 } from "@mui/material";
-
-import { useTheme } from "@mui/material/styles";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import AddDialog from "./AddDialog";
+import UpdateUser from "./UpdateUser";
 
 const Birthday = () => {
   const [expand, setExpand] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const handleExpandClick = () => {
     setExpand(!expand);
-  };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
   return (
     <div>
@@ -56,60 +35,12 @@ const Birthday = () => {
           }
           //   subheader="September 14, 2016"
           sx={{ flexDirection: "row-reverse" }}
-          avatar={
-            <IconButton>
-              <Image
-                src="/programmer.png"
-                alt="programmer.png"
-                width={40}
-                height={40}
-              />
-            </IconButton>
-          }
+          avatar={<UpdateUser />}
         />
 
         <CardContent>
-          <Button
-            variant="contained"
-            color="success"
-            sx={{ borderRadius: "5px", width: "100%" }}
-            onClick={handleClickOpen}
-          >
-            <FcPlus size={20} /> &nbsp; ADD
-          </Button>
-          {/* Dialog box */}
-          <Dialog
-            fullScreen={fullScreen}
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="responsive-dialog-title"
-          >
-            <DialogTitle id="responsive-dialog-title">
-              {"Use Google's location service?"}
-            </DialogTitle>
-            <DialogContent>
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-              <div>
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                />
-              </div>
-            </DialogContent>
-            <DialogActions>
-              <Button autoFocus onClick={handleClose}>
-                Disagree
-              </Button>
-              <Button onClick={handleClose} autoFocus>
-                Agree
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <AddDialog />
+
           <Card sx={{ mt: 6, borderRadius: "12px", height: "100%" }}>
             <Grid container spacing={1}>
               <Grid

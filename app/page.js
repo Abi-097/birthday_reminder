@@ -1,4 +1,4 @@
-import Birthday from "./components/Birthday";
+import Birthday from "./components/Birthday/Birthday";
 
 export default function Home() {
   return (
