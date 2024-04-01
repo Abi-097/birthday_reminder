@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import AddDialog from "./AddDialog";
 import UpdateUser from "./UpdateUser";
+import UpdateDialog from "./UpdateDialog";
 
 const Birthday = () => {
   const [expand, setExpand] = useState(false);
@@ -114,14 +115,7 @@ const Birthday = () => {
                   padding: "0px 15px 0px 0px", //top right bottom left
                 }}
               >
-                <IconButton>
-                  <Image
-                    src="/edit.png"
-                    alt="edit.png"
-                    width={25}
-                    height={25}
-                  />
-                </IconButton>
+                <UpdateDialog />
                 <IconButton>
                   <Image
                     src="/trash.png"

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import FormControl from "@mui/material/FormControl";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
-
-import Image from "next/image";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
   Button,
   Dialog,
@@ -12,14 +11,23 @@ import {
   TextField,
   DialogTitle,
   useMediaQuery,
-  OutlinedInput,
+  MenuItem,
   IconButton,
-  InputLabel,
-  InputAdornment,
 } from "@mui/material";
+import Image from "next/image";
+const currencies = [
+  {
+    value: "email",
+    label: "Email",
+  },
+  {
+    value: "phone",
+    label: "Phone",
+  },
+];
 
-const UpdateUser = () => {
-  const [open, setOpen] = useState(true);
+const UpdateDialog = () => {
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -34,19 +42,14 @@ const UpdateUser = () => {
   return (
     <div>
       <IconButton onClick={handleClickOpen}>
-        <Image
-          src="/programmer.png"
-          alt="programmer.png"
-          width={40}
-          height={40}
-        />
+        <Image src="/edit.png" alt="edit.png" width={25} height={25} />
       </IconButton>
       {/* Dialog box */}
       <Dialog
         sx={{
           "& .MuiDialog-paper": {
             width: "100%",
-            maxHeight: 500,
+            maxHeight: 800,
             borderRadius: "16px",
           },
         }}
@@ -60,54 +63,38 @@ const UpdateUser = () => {
           id="responsive-dialog-title"
           sx={{ fontWeight: 500, fontSize: "25px" }}
         >
-          {"User Details"}
+          {"Update Birthday"}
         </DialogTitle>
         <DialogContent>
           <TextField
             id="outlined-basic"
-            label="User Name"
+            label="Name"
             variant="outlined"
             sx={{ width: "100%", mt: 2 }}
           />
-          <TextField
-            id="outlined-basic"
-            label="Phone No"
-            variant="outlined"
-            sx={{ width: "30%", mt: 2, mr: 1 }}
-          />
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker sx={{ width: "100%", mt: 2 }} />
+          </LocalizationProvider>
 
           <TextField
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            sx={{ width: "68%", mt: 2 }}
-          />
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
+            id="outlined-select-currency"
+            select
+            label="Choose"
+            defaultValue="email"
             sx={{ width: "100%", mt: 2 }}
-          />
-
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            sx={{ width: "49%", mt: 2, mr: 1 }}
-          />
-
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            sx={{ width: "49%", mt: 2 }}
-          />
+          >
+            {currencies.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </DialogContent>
         <DialogActions sx={{ padding: "0px 22px 12px 22px" }}>
           <Button
             variant="contained"
-            color="success"
+            color="warning"
             autoFocus
             onClick={handleClose}
             sx={{ width: "70%" }}
@@ -129,4 +116,4 @@ const UpdateUser = () => {
   );
 };
 
-export default UpdateUser;
+export default UpdateDialog;
