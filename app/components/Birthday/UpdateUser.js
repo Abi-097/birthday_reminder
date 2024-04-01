@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import FormControl from "@mui/material/FormControl";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 import Image from "next/image";
 import {

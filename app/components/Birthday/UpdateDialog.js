@@ -15,7 +15,7 @@ import {
   IconButton,
 } from "@mui/material";
 import Image from "next/image";
-const currencies = [
+const contacts = [
   {
     value: "email",
     label: "Email",
@@ -84,7 +84,7 @@ const UpdateDialog = () => {
             defaultValue="email"
             sx={{ width: "100%", mt: 2 }}
           >
-            {currencies.map((option) => (
+            {contacts.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
