@@ -13,8 +13,6 @@ import {
   useMediaQuery,
   OutlinedInput,
   IconButton,
-  InputLabel,
-  InputAdornment,
 } from "@mui/material";
 
 const UpdateUser = () => {
