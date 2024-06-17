@@ -1,9 +1,11 @@
-import Birthday from "./components/Birthday/Birthday";
+import Image from "next/image";
+import styles from "./page.module.css";
+import SignIn from "./components/Signin";
 
 export default function Home() {
   return (
-    <div className="App">
-      <Birthday />
+    <div className="container">
+      <SignIn />
     </div>
   );
 }

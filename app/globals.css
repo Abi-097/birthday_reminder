@@ -1,4 +1,23 @@
-.App {
+/* styles/globals.css */
+body,
+html {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-color: rgb(245, 221, 221);
+}
+
+.container {
+  height: 850px;
+  width: 80%;
+  max-width: 1700px;
+  /* padding: 35px; */
+  border-radius: 25px;
+  /* border: 1px solid black; */
+  /* background-color: lightgrey; */
+  box-sizing: border-box;
 }
