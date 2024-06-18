@@ -1,9 +1,14 @@
-import React from "react";
 import { Card, TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import CommonButton from "./common/Button";
-
-const SignIn = () => {
+import CommonButton from "@/app/components/common/Button";
+import { useForm } from "react-hook-form";
+const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   return (
     <div
       style={{
@@ -32,13 +37,24 @@ const SignIn = () => {
           height={100}
           style={{ display: "block", margin: "auto", marginBottom: "12px" }}
         />
-        <TextField
-          id="outlined-basic"
-          label="Name"
-          color="info"
-          variant="outlined"
-          sx={{ width: "100%", mb: 2 }}
-        />
+        {"register" === "register" && (
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            color="info"
+            variant="outlined"
+            sx={{ width: "100%", mb: 2 }}
+            {...register("username", {
+              required: "Name is required",
+              validate: (value) => {
+                if (value.length < 3) {
+                  return "Name must have at least 3 Characters";
+                }
+              },
+            })}
+          />
+        )}
+
         <TextField
           id="outlined-basic"
           label="Email"
@@ -69,4 +85,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Register;
