@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import ToastContext from "../components/common/ToastContext";
 import Provider from "../components/common/Provider";
 
