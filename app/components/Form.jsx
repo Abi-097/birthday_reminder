@@ -6,6 +6,9 @@ import CommonButton from "./common/Button";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 const Form = ({ type }) => {
   const {
     register,
@@ -13,6 +16,41 @@ const Form = ({ type }) => {
     watch,
     formState: { errors },
   } = useForm();
+
+  const router = useRouter();
+
+  const onSubmit = async (data) => {
+    if (type === "register") {
+      try {
+        const res = await axios.post("/api/auth/register", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (res.status === 200) {
+          router.push("/");
+        }
+      } catch (error) {
+        toast.error(error.response.data);
+      }
+    }
+
+    if (type === "login") {
+      try {
+        const res = await signIn("credentials", {
+          ...data,
+          redirect: false,
+        });
+
+        if (res.ok) {
+          router.push("/main");
+        }
+      } catch (error) {
+        toast.error("Invalid email or password");
+      }
+    }
+  };
   return (
     <div
       style={{
@@ -41,7 +79,7 @@ const Form = ({ type }) => {
           height={100}
           style={{ display: "block", margin: "auto", marginBottom: "12px" }}
         />
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {type === "register" && (
             <div>
               <TextField
@@ -91,10 +129,10 @@ const Form = ({ type }) => {
           />
 
           <CommonButton
-            // color="warning"
             color={type === "register" ? "warning" : "success"}
             variant="contained"
             sx={{ display: "block", margin: "auto", mb: 2 }}
+            type="submit"
           >
             {type === "register" ? "Join In" : "Sign In"}
           </CommonButton>

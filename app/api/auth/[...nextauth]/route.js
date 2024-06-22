@@ -1,8 +1,8 @@
-import { ConnectToDB } from "@/app/util/index";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
-import User from "@/app/models/user";
+import User from "@/models/user";
+import ConnectToDB from "@/util";
 
 const handler = NextAuth({
   providers: [
@@ -13,7 +13,7 @@ const handler = NextAuth({
           throw new Error("Invalid email or Password");
         }
         await ConnectToDB();
-        const user = await user.findOne({ email: credentials.email });
+        const user = await User.findOne({ email: credentials.email });
 
         if (!user || !user?.password) {
           throw new Error("Invalid email or Password");
@@ -25,6 +25,7 @@ const handler = NextAuth({
           throw new Error("Invalid password");
         }
         return user;
+        // return { id: user._id, email: user.email };
       },
     }),
   ],

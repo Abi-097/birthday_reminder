@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let isConnected = false;
 
-export default ConnectToDB = async () => {
+const ConnectToDB = async () => {
   mongoose.set("strictQuery", true);
 
   if (isConnected) {
@@ -15,8 +15,11 @@ export default ConnectToDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+
+    isConnected = true;
     console.log("MongoDB is connected successfully");
   } catch (error) {
     console.log("error", error);
   }
 };
+export default ConnectToDB;

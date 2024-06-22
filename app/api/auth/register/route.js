@@ -1,5 +1,6 @@
-// import { ConnectToDB } from "../../../util/index";
-import { ConnectToDB } from "@/app/util/index";
+import ConnectToDB from "@/util";
+import User from "@/models/user";
+import { hash } from "bcryptjs";
 export const POST = async (req, res) => {
   try {
     await ConnectToDB();
@@ -7,7 +8,7 @@ export const POST = async (req, res) => {
 
     const { name, email, password } = body;
 
-    const existingUser = await User.fondOne({ email });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return new Response("User already exists", {
