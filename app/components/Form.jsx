@@ -27,7 +27,7 @@ const Form = ({ type }) => {
       <Card
         sx={{
           width: "400px",
-          height: "450px",
+          height: "100%",
           backgroundColor: "#F3EEEA",
           padding: "20px",
           borderRadius: "15px",
@@ -41,38 +41,94 @@ const Form = ({ type }) => {
           height={100}
           style={{ display: "block", margin: "auto", marginBottom: "12px" }}
         />
-        <TextField
-          id="outlined-basic"
-          label="Name"
-          color="info"
-          variant="outlined"
-          sx={{ width: "100%", mb: 2 }}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Email"
-          color="info"
-          variant="outlined"
-          sx={{ width: "100%", mb: 2 }}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Password"
-          color="info"
-          variant="outlined"
-          sx={{ width: "100%", mb: 4 }}
-        />
-        <CommonButton
-          color="warning"
-          variant="contained"
-          sx={{ display: "block", margin: "auto", mb: 2 }}
-        >
-          Sign In
-        </CommonButton>
-        <Typography>
-          Dont have account? Create{" "}
-          <span style={{ color: "green", fontWeight: 600 }}>here</span>
-        </Typography>
+        <form>
+          {type === "register" && (
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Name"
+                color="info"
+                variant="outlined"
+                {...register("name", {
+                  required: "Name is required",
+                  validate: (value) => {
+                    if (value.length < 3) {
+                      return "Name must be at least 3 characters";
+                    }
+                  },
+                })}
+                sx={{ width: "100%", mb: 2 }}
+              />
+              {errors.name && <Typography>{errors.name.message} </Typography>}
+            </div>
+          )}
+
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            color="info"
+            variant="outlined"
+            {...register("email", { required: "Email is required" })}
+            sx={{ width: "100%", mb: 2 }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            color="info"
+            variant="outlined"
+            {...register("password", {
+              required: "Password is required",
+              validate: (value) => {
+                if (
+                  value.length < 5 ||
+                  !value.match(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/)
+                ) {
+                  return "Password must be at least 5 characters and contain at least one special character";
+                }
+              },
+            })}
+            sx={{ width: "100%", mb: 4 }}
+          />
+
+          <CommonButton
+            // color="warning"
+            color={type === "register" ? "warning" : "success"}
+            variant="contained"
+            sx={{ display: "block", margin: "auto", mb: 2 }}
+          >
+            {type === "register" ? "Join In" : "Sign In"}
+          </CommonButton>
+          {type === "register" ? (
+            <Typography>
+              Already have an account? Sign In{" "}
+              <Link href="/" style={{ textDecoration: "none" }}>
+                <span
+                  style={{
+                    color: "red",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                  }}
+                >
+                  here
+                </span>
+              </Link>
+            </Typography>
+          ) : (
+            <Typography>
+              Don&#39;t have account? create{" "}
+              <Link href="/register" style={{ textDecoration: "none" }}>
+                <span
+                  style={{
+                    color: "green",
+                    fontWeight: 600,
+                  }}
+                >
+                  here
+                </span>
+              </Link>
+            </Typography>
+          )}
+        </form>
       </Card>
     </div>
   );
